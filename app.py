@@ -25,24 +25,75 @@ def add_days_since(df, ref_date):
     return df
 
 
-@st.cache_resource(show_spinner="Loading model...")
+@st.cache_resource(show_spinner="Training compatible model...")
 def load_model():
-    """Load the saved pipeline. If the saved file cannot be opened (different scikit-learn version),
-    retrain the same pipeline (KNN imputer + Logistic Regression) from the CSV."""
-    meta = json.load(open(META_PATH))
-    try:
-        return joblib.load(MODEL_PATH)["pipeline"], meta
-    except Exception:
-        df = pd.read_csv(DATA_PATH)
-        df = add_days_since(df, meta["ref_date"])
-        X, y = df[meta["num_cols"] + meta["cat_cols"]], df["risk_status"]
-        X_tr, _, y_tr, _ = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
-        prep = ColumnTransformer([
-            ("num", Pipeline([("scaler", StandardScaler()), ("knn_imputer", KNNImputer(n_neighbors=5))]), meta["num_cols"]),
-            ("cat", Pipeline([("imputer", SimpleImputer(strategy="constant", fill_value="Unknown")),
-                              ("onehot", OneHotEncoder(handle_unknown="ignore", sparse_output=False))]), meta["cat_cols"])])
-        pipe = Pipeline([("prep", prep), ("model", LogisticRegression(max_iter=1000, random_state=42))]).fit(X_tr, y_tr)
-        return pipe, meta
+    """Train a fresh pipeline using the current environment."""
+
+    with open(META_PATH, encoding="utf-8") as f:
+        meta = json.load(f)
+
+    df = pd.read_csv(DATA_PATH)
+    df = add_days_since(df, meta["ref_date"])
+
+    num_cols = meta["num_cols"]
+    cat_cols = meta["cat_cols"]
+
+    X = df[num_cols + cat_cols]
+    y = df["risk_status"]
+
+    X_train, _, y_train, _ = train_test_split(
+        X,
+        y,
+        test_size=0.2,
+        stratify=y,
+        random_state=42
+    )
+
+    preprocessor = ColumnTransformer([
+        (
+            "num",
+            Pipeline([
+                ("scaler", StandardScaler()),
+                ("knn_imputer", KNNImputer(n_neighbors=5))
+            ]),
+            num_cols
+        ),
+        (
+            "cat",
+            Pipeline([
+                (
+                    "imputer",
+                    SimpleImputer(
+                        strategy="constant",
+                        fill_value="Unknown"
+                    )
+                ),
+                (
+                    "onehot",
+                    OneHotEncoder(
+                        handle_unknown="ignore",
+                        sparse_output=False
+                    )
+                )
+            ]),
+            cat_cols
+        )
+    ])
+
+    pipe = Pipeline([
+        ("prep", preprocessor),
+        (
+            "model",
+            LogisticRegression(
+                max_iter=1000,
+                random_state=42
+            )
+        )
+    ])
+
+    pipe.fit(X_train, y_train)
+
+    return pipe, meta
 
 
 pipe, meta = load_model()
