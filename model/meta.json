@@ -1,0 +1,119 @@
+{
+  "final_model": "LogReg (baseline)",
+  "threshold": 0.31,
+  "ref_date": "2025-12-02",
+  "num_cols": [
+    "age",
+    "annual_income_inr",
+    "credit_score",
+    "credit_utilization_ratio",
+    "missed_payments_12m",
+    "avg_late_payment_days",
+    "monthly_transaction_count",
+    "monthly_spend_inr",
+    "cash_advance_count_6m",
+    "complaints_last_6m",
+    "failed_login_attempts_3m",
+    "account_tenure_months",
+    "debt_balance_inr",
+    "days_since_last_txn"
+  ],
+  "cat_cols": [
+    "gender",
+    "region",
+    "employment_type"
+  ],
+  "num_ranges": {
+    "age": [
+      18.0,
+      36.0,
+      75.0
+    ],
+    "annual_income_inr": [
+      15000.0,
+      38932.5,
+      163002.0
+    ],
+    "credit_score": [
+      405.0,
+      682.0,
+      850.0
+    ],
+    "credit_utilization_ratio": [
+      0.002,
+      0.37,
+      0.978
+    ],
+    "missed_payments_12m": [
+      0.0,
+      1.0,
+      10.0
+    ],
+    "avg_late_payment_days": [
+      0.1,
+      3.9,
+      47.1
+    ],
+    "monthly_transaction_count": [
+      5.0,
+      65.0,
+      153.0
+    ],
+    "monthly_spend_inr": [
+      3769.0,
+      19317.0,
+      87389.0
+    ],
+    "cash_advance_count_6m": [
+      0.0,
+      0.0,
+      7.0
+    ],
+    "complaints_last_6m": [
+      0.0,
+      0.0,
+      7.0
+    ],
+    "failed_login_attempts_3m": [
+      0.0,
+      2.0,
+      12.0
+    ],
+    "account_tenure_months": [
+      2.0,
+      48.0,
+      180.0
+    ],
+    "debt_balance_inr": [
+      3653.0,
+      35638.5,
+      213601.0
+    ],
+    "days_since_last_txn": [
+      1.0,
+      45.0,
+      90.0
+    ]
+  },
+  "cat_options": {
+    "gender": [
+      "Female",
+      "Male",
+      "Other"
+    ],
+    "region": [
+      "Central",
+      "East",
+      "North",
+      "South",
+      "West"
+    ],
+    "employment_type": [
+      "Retired",
+      "Salaried",
+      "Self-Employed",
+      "Student",
+      "Unemployed"
+    ]
+  }
+}

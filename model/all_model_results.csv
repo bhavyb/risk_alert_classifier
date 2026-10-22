@@ -1,0 +1,12 @@
+Model,Group,Train Acc,Test Acc,Precision,Recall,F1,F2,AUC,TN,FP (Type-I),FN (Type-II),TP
+LogReg (baseline),Baseline,0.997,1.0,1.0,1.0,1.0,1.0,1.0,809,0,0,111
+Dummy (always Low Risk),Baseline,0.8788,0.8793,0.0,0.0,0.0,0.0,0.5,809,0,111,0
+LogReg + Under-Sampling,Imbalance handling,0.9946,0.9978,0.9823,1.0,0.9911,0.9964,1.0,807,2,0,111
+LogReg + Over-Sampling,Imbalance handling,0.9948,0.9978,0.9823,1.0,0.9911,0.9964,1.0,807,2,0,111
+LogReg + SMOTE,Imbalance handling,0.9962,0.9978,0.9823,1.0,0.9911,0.9964,1.0,807,2,0,111
+LogReg + ADASYN,Imbalance handling,0.9935,0.9957,0.9652,1.0,0.9823,0.9928,1.0,805,4,0,111
+Decision Tree,Tree models,1.0,0.9707,0.9118,0.8378,0.8732,0.8516,0.9134,800,9,18,93
+Random Forest,Tree models,1.0,0.9967,1.0,0.973,0.9863,0.9783,1.0,809,0,3,108
+Decision Tree (RandomSearch),Tuned,0.9894,0.9815,0.9123,0.9369,0.9244,0.9319,0.9847,799,10,7,104
+Random Forest (RandomSearch),Tuned,0.9959,0.9967,0.9737,1.0,0.9867,0.9946,1.0,806,3,0,111
+Random Forest (GridSearch),Tuned,0.9959,0.9967,0.9737,1.0,0.9867,0.9946,1.0,806,3,0,111
