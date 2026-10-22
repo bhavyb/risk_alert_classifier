@@ -7,32 +7,13 @@
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
 ![imbalanced-learn](https://img.shields.io/badge/imbalanced--learn-SMOTE%20%7C%20ADASYN-8A2BE2?style=for-the-badge)
-![Streamlit](https://img.shields.io/badge/Streamlit-App-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+![Streamlit](https://riskalertclassifier-njrqeu85qk8s4wljuw2hfd.streamlit.app/)
 ![Status](https://img.shields.io/badge/Status-Completed-2EA44F?style=for-the-badge)
 
 **Recall = 1.00 &nbsp;•&nbsp; Precision = 1.00 &nbsp;•&nbsp; AUC = 1.00 &nbsp;•&nbsp; 0 False Negatives**
 
 </div>
 
----
-
-## 📌 Table of Contents
-
-- [Overview](#-overview)
-- [Key Highlights](#-key-highlights)
-- [Dataset](#-dataset)
-- [Project Pipeline](#-project-pipeline)
-- [Exploratory Analysis & Preparation](#-exploratory-analysis--preparation)
-- [Modelling](#-modelling)
-- [Handling Imbalanced Data](#-handling-imbalanced-data)
-- [Tree-Based Models & Tuning](#-tree-based-models--hyperparameter-tuning)
-- [Model Evaluation & Final Model](#-model-evaluation--final-model)
-- [Streamlit App](#-streamlit-app)
-- [Project Structure](#-project-structure)
-- [How to Run](#-how-to-run)
-- [Business Recommendations](#-business-recommendations)
-- [Limitations](#-limitations)
-- [Author](#-author)
 
 ---
 
@@ -151,7 +132,7 @@ The coefficients agree with real banking logic: risk goes **up** with late-payme
 </tr>
 <tr>
 <td><img src="images/03_logreg_coefficients.png" width="100%"></td>
-<td><img src="images/04_confusion_matrix_baseline.png" width="100%"></td>
+<td><img src="images/04_cm_baseline.png" width="100%"></td>
 </tr>
 </table>
 
@@ -182,8 +163,8 @@ The coefficients agree with real banking logic: risk goes **up** with late-payme
 <td align="center"><b>Stress test: recall vs imbalance</b></td>
 </tr>
 <tr>
-<td><img src="images/05_dummy_vs_logreg.png" width="100%"></td>
-<td><img src="images/06_imbalance_stress_test.png" width="100%"></td>
+<td><img src="images/05_imbalance_impact.png" width="100%"></td>
+<td><img src="images/05b_imbalance_stress_test.png" width="100%"></td>
 </tr>
 </table>
 
@@ -208,7 +189,7 @@ The coefficients agree with real banking logic: risk goes **up** with late-payme
 | ADASYN | 3,234 | 3,211 | 0.9652 | 1.0000 | 0.9823 | 1.0000 | 4 | 0 |
 
 <p align="center">
-  <img src="images/07_before_after_balancing.png" width="65%">
+  <img src="images/06_balancing_comparison.png" width="65%">
 </p>
 
 > ✅ Resampling is a **safety net for rarer risk events**, not a must-have on this dataset — recall was already 1.00.
@@ -227,15 +208,15 @@ The unrestricted tree (depth 17, 74 leaves) hits **train accuracy 1.00** but onl
 <td align="center"><b>Decision Tree confusion matrix</b></td>
 </tr>
 <tr>
-<td><img src="images/08_tree_depth_overfitting.png" width="100%"></td>
-<td><img src="images/09_confusion_matrix_decision_tree.png" width="100%"></td>
+<td><img src="images/08_dt_overfitting.png" width="100%"></td>
+<td><img src="images/07_cm_decision_tree.png" width="100%"></td>
 </tr>
 </table>
 
 ### Random Forest — top features
 
 <p align="center">
-  <img src="images/10_rf_feature_importance.png" width="60%">
+  <img src="images/09_rf_feature_importance.png" width="60%">
 </p>
 
 Top drivers: `avg_late_payment_days`, `missed_payments_12m`, `credit_utilization_ratio`, `credit_score` — the same story Logistic Regression told.
@@ -260,7 +241,7 @@ Grid Search selected the **same parameters** → the randomized search had alrea
 | Random Forest (Grid) | 0.9959 | 0.9967 | 0.9737 | 1.0000 | 0.9867 | 3 | 0 |
 
 <p align="center">
-  <img src="images/11_tuned_vs_untuned.png" width="65%">
+  <img src="images/10_tuned_vs_untuned.png" width="65%">
 </p>
 
 ---
@@ -270,7 +251,7 @@ Grid Search selected the **same parameters** → the randomized search had alrea
 ### ROC curves of all models
 
 <p align="center">
-  <img src="images/12_roc_all_models.png" width="65%">
+  <img src="images/11_roc_all_models.png" width="65%">
 </p>
 
 Many models tie at **AUC ≈ 1.00** on a single test split, so AUC alone cannot pick the winner. Models were also ranked by **F2-score** and a **business cost** (FN = 10, FP = 1):
@@ -310,7 +291,7 @@ Because the test set has only 111 risky customers, the finalists were re-compare
 </tr>
 <tr>
 <td><img src="images/13_threshold_analysis.png" width="100%"></td>
-<td><img src="images/14_final_model_threshold.png" width="100%"></td>
+<td><img src="images/14_final_model_confusion.png" width="100%"></td>
 </tr>
 </table>
 
@@ -341,75 +322,3 @@ The final pipeline (KNN imputation → scaling → one-hot encoding → Logistic
   <b>📊 Model results tab</b><br>
   <img src="images/17_app_model_results.png" width="70%">
 </p>
-
----
-
-## 🗂️ Project Structure
-
-```text
-Risk-Alert-Classifier/
-├── 📓 Risk_Alert_Classifier.ipynb          # Full notebook (Parts A–H)
-├── 📄 Risk_Alert_Classifier_Theory.pdf     # Project report
-├── 🖥️ app.py                               # Streamlit app
-├── 📊 Risk_Alert_Classifier_Dataset_4600.csv
-├── 🖼️ images/                              # Figures & app screenshots
-├── 📦 model/
-│   ├── risk_model.joblib                   # Saved pipeline + metadata
-│   ├── meta.json                           # Threshold, columns, value ranges
-│   └── all_model_results.csv               # Comparison of all models
-├── requirements.txt
-└── README.md
-```
-
----
-
-## ⚙️ How to Run
-
-```bash
-# 1️⃣ Clone the repository
-git clone https://github.com/<your-username>/Risk-Alert-Classifier.git
-cd Risk-Alert-Classifier
-
-# 2️⃣ Install dependencies
-pip install numpy pandas matplotlib seaborn scikit-learn imbalanced-learn joblib streamlit jupyter
-
-# 3️⃣ Re-run the full analysis (creates images/ and model/)
-jupyter notebook Risk_Alert_Classifier.ipynb
-
-# 4️⃣ Launch the app
-streamlit run app.py
-```
-
----
-
-## 💼 Business Recommendations
-
-- ✅ Deploy **Logistic Regression @ threshold ≈ 0.31** as the early-warning model and manually review flagged customers.
-- 📅 **Monitor** recall and the high-risk share every month. If risky customers become rarer, retrain with **SMOTE** or **class weights**.
-- 🔎 Watch the main risk drivers: **late-payment days, missed payments, credit utilisation, debt balance, low credit score / income**.
-- 🕒 Re-validate on real production data with a **time-based split**.
-
-**Cost view:** a False Negative means an unnoticed default/fraud loss (expensive); a False Positive means an unnecessary manual review (small cost).
-
----
-
-## ⚠️ Limitations
-
-- The dataset is **very clean and almost linearly separable**, so perfect scores (1.00) are unlikely on real bank data.
-- The test set has only **111 high-risk customers** — one or two customers can change a metric, which is why repeated cross-validation was used.
-- The 10 : 1 cost ratio is an **assumption**; real costs should be supplied by the bank.
-
----
-
-## 🛠️ Tech Stack
-
-`Python` · `Pandas` · `NumPy` · `Matplotlib` · `Seaborn` · `Scikit-learn` · `Imbalanced-learn` · `Joblib` · `Streamlit`
-
----
-
-## 👤 Author
-
-**Bhavy**
-AI / ML enthusiast · Computer Science student
-
-⭐ If you found this project useful, consider giving it a star!
