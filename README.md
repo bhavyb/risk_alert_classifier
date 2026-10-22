@@ -7,7 +7,7 @@
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
 ![imbalanced-learn](https://img.shields.io/badge/imbalanced--learn-SMOTE%20%7C%20ADASYN-8A2BE2?style=for-the-badge)
-![Streamlit](https://riskalertclassifier-njrqeu85qk8s4wljuw2hfd.streamlit.app/)
+![Streamlit](https://img.shields.io/badge/Streamlit-App-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Completed-2EA44F?style=for-the-badge)
 
 **Recall = 1.00 &nbsp;•&nbsp; Precision = 1.00 &nbsp;•&nbsp; AUC = 1.00 &nbsp;•&nbsp; 0 False Negatives**
