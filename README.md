@@ -327,4 +327,6 @@ The final pipeline (KNN imputation → scaling → one-hot encoding → Logistic
 ---
 
 Streamlit https://riskalertclassifier-njrqeu85qk8s4wljuw2hfd.streamlit.app/
-Video
+
+
+Video   https://drive.google.com/drive/folders/1DcqsGzyI4w7R6q_CR2iL5DP_fUhQxD4O?usp=drive_link
